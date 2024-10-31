@@ -1,14 +1,31 @@
 <?php
+//code author
 
-class Cat {
-    public $name;
-};
+class Job {
+    public function task($logger){
+        for($i=0;$i<10;$i++) {
+            $logger= new ConsoleLogger();
+            $logger->log("Task $i complete!");
+        }
+
+    }
+}
+class ConsoleLogger {
+    public function log($message) {
+        echo $message . "\n";
+    }
+}
 
 
-$cat1 = new Cat();
-$cat1->name = 'Nuustik';
 
-$cat2 = $cat1;
-$cat2->name = 'Pätu';
-
-var_dump($cat1, $cat2);
+// code user
+class FileLogger {
+    public function log($message){
+        $file = fopen('./log.txt', 'a');
+        fwrite($file, $message. "\n");
+        fclose($file);
+    }
+}
+$job = new Job();
+$logger = new ConsoleLogger();
+$job->task($logger);
